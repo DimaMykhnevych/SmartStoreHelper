@@ -4,6 +4,7 @@ using SmartHelper.Helpers.EntitiesRecognition;
 using SmartHelper.Helpers.SpeechRecognition;
 using SmartHelper.Options;
 using SmartHelper.Seeding;
+using SmartHelper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.Configure<TextAnalyticsApiClientOptions>(builder.Configuration.
 
 builder.Services.AddSingleton<ISpeechRecognition, SpeechRecognition>();
 builder.Services.AddSingleton<IEntitiesRecognition, EntitiesRecognition>();
+builder.Services.AddTransient<IProductSearcher, ProductSearcher>();
 
 string connectionString = builder.Configuration["ConnectionStrings:SmartHelperDb"];
 builder.Services.AddDbContext<SmartHelperDbContext>(opt =>
