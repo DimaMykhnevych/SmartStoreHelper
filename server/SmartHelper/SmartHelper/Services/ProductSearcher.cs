@@ -47,7 +47,6 @@ namespace SmartHelper.Services
                 .ToList();
 
             var products = await _dbContext.Products.ToListAsync();
-
             return products.Where(p => productNames.Contains(p.Title, StringComparer.OrdinalIgnoreCase));
         }
     }

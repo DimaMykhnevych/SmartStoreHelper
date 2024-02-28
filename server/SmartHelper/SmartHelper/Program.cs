@@ -12,6 +12,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    //builder.WithOrigins("http://localhost:4200")
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    );
+});
+
 builder.Services.Configure<SpeechRecognitionApiOptions>(builder.Configuration.GetSection(nameof(SpeechRecognitionApiOptions)));
 builder.Services.Configure<TextAnalyticsApiClientOptions>(builder.Configuration.GetSection(nameof(TextAnalyticsApiClientOptions)));
 
@@ -42,5 +52,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("CorsPolicy");
 
 app.Run();
